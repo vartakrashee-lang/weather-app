@@ -60,9 +60,8 @@ function App() {
       alert("Please select a city from the dropdown")
       return
     }
-
-   const response = await fetch(
-  `http://localhost:5000/weather?latitude=${selectedPlace.latitude}&longitude=${selectedPlace.longitude}`
+const response = await fetch(
+  `https://weather-app-ax7f.onrender.com/weather?latitude=${selectedPlace.latitude}&longitude=${selectedPlace.longitude}`
 )
 
     const data = await response.json()
@@ -209,4 +208,4 @@ function App() {
   )
 }
 
-export default App
+export default Appgit --version
