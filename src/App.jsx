@@ -208,4 +208,4 @@ const response = await fetch(
   )
 }
 
-export default Appgit --version
+export default App
