@@ -13,20 +13,38 @@ app.get("/", (req, res) => {
 app.get("/weather", async (req, res) => {
   const { latitude, longitude } = req.query
 
+  if (!latitude || !longitude) {
+    return res.status(400).json({
+      error: "Latitude and longitude are required"
+    })
+  }
+
   try {
-    
-const response = await fetch(
-  `https://weather-app-xxxx.onrender.com/weather?latitude=${selectedPlace.latitude}&longitude=${selectedPlace.longitude}`
-)
+    const url =
+      `https://api.open-meteo.com/v1/forecast` +
+      `?latitude=${latitude}` +
+      `&longitude=${longitude}` +
+      `&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`
+
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error(`Open-Meteo error: ${response.status}`)
+    }
+
     const data = await response.json()
 
     res.json(data)
+
   } catch (error) {
+    console.error(error)
+
     res.status(500).json({
       error: "Unable to fetch weather data"
     })
   }
 })
+
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Backend running on http://localhost:5000")
+  console.log("Backend is running")
 })
