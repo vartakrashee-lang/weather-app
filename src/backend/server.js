@@ -14,10 +14,10 @@ app.get("/weather", async (req, res) => {
   const { latitude, longitude } = req.query
 
   try {
-    const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`
-    )
-
+    
+const response = await fetch(
+  `https://weather-app-xxxx.onrender.com/weather?latitude=${selectedPlace.latitude}&longitude=${selectedPlace.longitude}`
+)
     const data = await response.json()
 
     res.json(data)
